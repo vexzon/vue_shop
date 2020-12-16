@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../components/Login.vue";
 import Home from "../components/Home.vue";
+import Welcome from "../components/Welcome.vue";
 
 Vue.use(VueRouter);
 
@@ -18,16 +19,30 @@ const routes = [
   {
     path: "/home",
     name: "Home",
-    component: Home
+    component: Home,
+    redirect: "/welcome",
+    children: [
+      {
+        path: "/welcome",
+        name: "welcome",
+        component: Welcome
+      },
+      {
+        path: "/users",
+        name: "Users",
+        component: () => import("../components/user/Users.vue")
+      }
+    ]
   }
+
   // {
   //   path: "/about",
   //   name: "About",
   //   // route level code-splitting
   //   // this generates a separate chunk (about.[hash].js) for this route
   //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
+  // component: () =>
+  //   import(/* webpackChunkName: "about" */ "../views/About.vue")
   // }
 ];
 
